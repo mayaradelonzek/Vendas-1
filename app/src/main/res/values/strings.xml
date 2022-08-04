@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Vendas</string>
+    <string name="what_your_name">Qual o seu nome?</string>
+    <string name="name">Nome</string>
+    <string name="ok">Ok</string>
+    <string name="clear">Limpar</string>
+    <string name="hello">Olá, %s</string>
 </resources>
