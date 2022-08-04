@@ -58,6 +58,8 @@ class MainActivity : AppCompatActivity() {
             container,
             getString(R.string.empty_name),
             Snackbar.LENGTH_LONG
-        ).show()
+        ).setAction("Tente novamente") {
+          
+        }.show()
     }
 }
