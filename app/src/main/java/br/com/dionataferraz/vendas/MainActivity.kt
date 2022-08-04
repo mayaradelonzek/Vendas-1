@@ -1,11 +1,13 @@
 package br.com.dionataferraz.vendas
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btClear: Button
     private lateinit var etName: EditText
     private lateinit var tvAnswer: TextView
+    private lateinit var container: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         btClear = findViewById(R.id.bt_clear)
         etName = findViewById(R.id.et_name)
         tvAnswer = findViewById(R.id.tv_answer)
+        container = findViewById(R.id.container)
     }
 
     private fun initializeBtOkListener() {
@@ -35,6 +39,8 @@ class MainActivity : AppCompatActivity() {
             if (!etName.text.isNullOrBlank()) {
                 tvAnswer.text = getString(R.string.hello, etName.text)
                 tvAnswer.visibility = View.VISIBLE
+            } else {
+                showMessage()
             }
         }
     }
@@ -45,5 +51,13 @@ class MainActivity : AppCompatActivity() {
             etName.text.clear()
             tvAnswer.visibility = View.GONE
         }
+    }
+
+    private fun showMessage() {
+        Snackbar.make(
+            container,
+            getString(R.string.empty_name),
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 }
