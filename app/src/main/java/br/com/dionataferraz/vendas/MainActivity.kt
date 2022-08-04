@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.snackbar.Snackbar
@@ -59,7 +60,10 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.empty_name),
             Snackbar.LENGTH_LONG
         ).setAction("Tente novamente") {
-          
+            Toast.makeText(
+                this,
+                "Sou um toast", Toast.LENGTH_LONG
+            ).show()
         }.show()
     }
 }
