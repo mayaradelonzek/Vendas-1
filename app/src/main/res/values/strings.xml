@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Vendas</string>
-    <string name="what_your_name">Qual o seu nome?</string>
-    <string name="name">Nome</string>
-    <string name="ok">Ok</string>
-    <string name="clear">Limpar</string>
-    <string name="hello">Olá, %s</string>
-    <string name="empty_name">Nome vazio!</string>
+
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="login">Login</string>
 </resources>
