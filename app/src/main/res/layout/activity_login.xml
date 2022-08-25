@@ -10,14 +10,18 @@
         android:orientation="vertical"
         tools:context=".LoginActivity">
 
+        <!-- https://material.io/components/text-fields/android#filled-text-field -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:hint="@string/email"
+            app:endIconMode="clear_text"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:suffixText="@string/login_sufix_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_email"
@@ -31,11 +35,13 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             android:hint="@string/password"
+            app:endIconMode="password_toggle"
             app:layout_constraintTop_toBottomOf="@+id/ti_email">
 
             <com.google.android.material.textfield.TextInputEditText
