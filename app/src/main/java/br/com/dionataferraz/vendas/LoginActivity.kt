@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btLogin.setOnClickListener {
             viewModel.login(null, null)
-            val intent  = Intent(this, ProfileActivity::class.java)
+            val intent  = Intent(this, TransactionsActivity::class.java)
             startActivity(intent)
         }
 
