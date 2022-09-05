@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Vendas</string>
+
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="login">Login</string>
+    <string name="nome">Nome</string>
+    <string name="age">Idade</string>
+    <string name="man">Homem</string>
+    <string name="woman">Mulher</string>
+    <string name="other">Outro</string>
+    <string name="save">Salvar</string>
 </resources>
