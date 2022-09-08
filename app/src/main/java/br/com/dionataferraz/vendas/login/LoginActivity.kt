@@ -1,9 +1,10 @@
-package br.com.dionataferraz.vendas
+package br.com.dionataferraz.vendas.login
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import br.com.dionataferraz.vendas.HomeActivity
 import br.com.dionataferraz.vendas.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
