@@ -6,10 +6,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="16dp"
         tools:context=".AccountActivity">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:theme="@style/Widget.MaterialComponents.Toolbar.Primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Create Account"
+            app:titleTextColor="@android:color/white" />
+
         <com.google.android.material.textfield.TextInputLayout
+            android:paddingHorizontal="16dp"
             android:id="@+id/ti_acc_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,6 +38,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:paddingHorizontal="16dp"
             android:id="@+id/ti_saldo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,6 +56,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:paddingHorizontal="16dp"
             android:id="@+id/responsible_acc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,6 +74,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <RadioGroup
+            android:paddingHorizontal="16dp"
             android:id="@+id/acc_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,6 +97,7 @@
         </RadioGroup>
 
         <com.google.android.material.button.MaterialButton
+            android:layout_marginRight="16dp"
             android:id="@+id/bt_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

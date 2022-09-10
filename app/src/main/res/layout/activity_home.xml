@@ -103,5 +103,18 @@
             app:layout_constraintStart_toStartOf="@+id/tv_credit_card_place_holder"
             app:layout_constraintTop_toBottomOf="@+id/tv_credit_card_place_holder" />
 
+        <Button
+            android:id="@+id/new_acc"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/purple_700"
+            android:text="@string/nova_conta"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="@+id/tv_account_place_holder"
+            app:layout_constraintStart_toStartOf="@+id/tv_account_place_holder"
+            app:layout_constraintTop_toBottomOf="@+id/tv_account_place_holder" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

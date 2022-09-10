@@ -20,4 +20,5 @@
     <string name="responsavel_da_conta">Responsável da Conta</string>
     <string name="credito">Crédito</string>
     <string name="debito">Débito</string>
+    <string name="nova_conta">Nova Conta</string>
 </resources>
