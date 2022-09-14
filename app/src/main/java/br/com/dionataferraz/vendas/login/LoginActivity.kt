@@ -25,8 +25,13 @@ class LoginActivity : AppCompatActivity() {
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString(),
             )
-            val intent  = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+        }
+
+        viewModel.shouldShowHome.observe(this) { shouldShow ->
+            if (shouldShow) {
+                val intent  = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         viewModel.shouldShowError.observe(this) { shouldShow ->
