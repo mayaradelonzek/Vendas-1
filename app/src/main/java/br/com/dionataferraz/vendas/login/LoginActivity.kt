@@ -21,7 +21,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.btLogin.setOnClickListener {
-            viewModel.login(null, null)
+            viewModel.login(
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString(),
+            )
             val intent  = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
