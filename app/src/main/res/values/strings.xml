@@ -26,4 +26,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_bottom_sheet">BottomSheetActivity</string>
     <string name="clear">Limpar</string>
+    <string name="logo_fundatec">Logo Fundatec</string>
+    <string name="novo_por_aqui">Novo por aqui?</string>
+    <string name="registrar">Registrar</string>
+    <string name="novo_por_aqui2">Novo por aqui?</string>
 </resources>
