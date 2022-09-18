@@ -1,5 +1,6 @@
-package br.com.dionataferraz.vendas
+package br.com.dionataferraz.vendas.transaction.data
 
+import br.com.dionataferraz.vendas.transaction.TransactionType
 import com.squareup.moshi.JsonClass
 import java.util.Date
 
@@ -8,6 +9,7 @@ class Transaction(
     val time: Date,
     val amount: Double,
     val name: String,
-    val type: TransactionType) {
+    val type: TransactionType
+) {
 
 }

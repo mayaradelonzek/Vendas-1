@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.dionataferraz.vendas.HomeActivity
-import br.com.dionataferraz.vendas.ProfileActivity
-import br.com.dionataferraz.vendas.TransactionsActivity
 import br.com.dionataferraz.vendas.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

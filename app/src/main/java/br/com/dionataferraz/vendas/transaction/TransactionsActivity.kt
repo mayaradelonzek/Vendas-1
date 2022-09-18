@@ -1,4 +1,4 @@
-package br.com.dionataferraz.vendas
+package br.com.dionataferraz.vendas.transaction
 
 import android.content.Context
 import android.os.Build
@@ -6,17 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import br.com.dionataferraz.vendas.account.data.Account
+import br.com.dionataferraz.vendas.transaction.data.Transaction
+import br.com.dionataferraz.vendas.TransactionAdapter
 import br.com.dionataferraz.vendas.databinding.ActivityTransactionsBinding
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import java.time.LocalTime
 import java.util.Date
 
-class TransactionsActivity : AppCompatActivity(),TransactionAdapter.Listener {
+class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
 
     private lateinit var binding: ActivityTransactionsBinding
     private val adapter: TransactionAdapter by lazy {
@@ -80,11 +80,11 @@ class TransactionsActivity : AppCompatActivity(),TransactionAdapter.Listener {
             Transaction(
                 time = Date(2021, 12, 5, 10, 0),
                 amount = 10.00,
-                name = "Big",
+                name = "Zaffari",
                 type = TransactionType.MARKET
             ),
             Transaction(
-                time = Date(2021, 12, 5, 5, 15),
+                time = Date(2021, 12, 19, 5, 15),
                 amount = 55.56,
                 name = "Cinemark",
                 type = TransactionType.LEISURE
@@ -96,9 +96,9 @@ class TransactionsActivity : AppCompatActivity(),TransactionAdapter.Listener {
                 type = TransactionType.BILL
             ),
             Transaction(
-                time = Date(2021, 12, 5, 7, 43),
+                time = Date(2021, 12, 5, 9, 43),
                 amount = 39.76,
-                name = "Gas",
+                name = "Netflix",
                 type = TransactionType.BILL
             )
         )

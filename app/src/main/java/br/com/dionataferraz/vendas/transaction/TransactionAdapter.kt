@@ -1,9 +1,12 @@
 package br.com.dionataferraz.vendas
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.dionataferraz.vendas.databinding.ItemListBinding
+import br.com.dionataferraz.vendas.transaction.TransactionType
+import br.com.dionataferraz.vendas.transaction.data.Transaction
 
 class TransactionAdapter(private val listener: Listener) :
     RecyclerView.Adapter<TransactionViewHolder>() {
@@ -62,6 +65,7 @@ class TransactionViewHolder(
         return icon
     }
 
+    @SuppressLint("SetTextI18n")
     fun bind(transaction: Transaction) {
         binding.tvName.text = transaction.name
         binding.tvTime.text = transaction.time.hours.toString() + ":" + transaction.time.minutes.toString()

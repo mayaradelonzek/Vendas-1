@@ -1,11 +1,11 @@
 package br.com.dionataferraz.vendas
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import br.com.dionataferraz.vendas.account.AccountActivity
 import br.com.dionataferraz.vendas.databinding.ActivityHomeBinding
+import br.com.dionataferraz.vendas.transaction.TransactionsActivity
 
 class HomeActivity : AppCompatActivity() {
 
