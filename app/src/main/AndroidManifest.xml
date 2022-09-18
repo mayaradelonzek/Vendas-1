@@ -22,7 +22,7 @@
             android:exported="false"
             android:parentActivityName=".login.LoginActivity" />
         <activity
-            android:name=".TransactionsActivity"
+            android:name=".transaction.TransactionsActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
