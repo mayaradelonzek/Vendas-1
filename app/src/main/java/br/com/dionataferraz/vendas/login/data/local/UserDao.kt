@@ -1,0 +1,16 @@
+package br.com.dionataferraz.vendas.login.data.local
+
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+
+@Dao
+interface UserDao {
+
+    @Insert
+    fun insertUser(userEntity: UserEntity)
+
+    @Query("SELECT * from userTable")
+    fun getUser(): LiveData<UserEntity>
+}
