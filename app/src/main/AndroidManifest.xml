@@ -14,20 +14,22 @@
         android:theme="@style/Theme.Vendas"
         tools:targetApi="31">
         <activity
-            android:name=".FragmentContainer"
-            android:exported="false" />
-        <activity
-            android:name=".AccountActivity"
-            android:exported="false" />
+            android:name=".login.LoginActivity"
+            android:exported="true" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".login.LoginActivity" />
         <activity
             android:name=".TransactionsActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".account.AccountActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -38,9 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".login.LoginActivity"
-            android:exported="true" />
     </application>
 
 </manifest>

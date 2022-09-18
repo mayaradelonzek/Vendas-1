@@ -6,14 +6,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".AccountActivity">
+        tools:context=".account.AccountActivity">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/create_acc_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="4dp"
-            android:theme="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:theme="@style/ToolbarTheme"
             app:layout_constraintTop_toTopOf="parent"
             app:title="Create Account"
             app:titleTextColor="@android:color/white" />
@@ -83,12 +83,14 @@
             app:layout_constraintTop_toBottomOf="@+id/responsible_acc">
 
             <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/credit_acc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/credito" />
 
             <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/debit_acc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -97,7 +99,7 @@
         </RadioGroup>
 
         <com.google.android.material.button.MaterialButton
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:id="@+id/bt_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
