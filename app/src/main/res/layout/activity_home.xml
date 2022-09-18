@@ -8,6 +8,29 @@
         android:layout_height="match_parent"
         tools:context=".HomeActivity">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:theme="@style/ToolbarTheme"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Home"
+            app:titleTextColor="@android:color/white" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+
         <View
             android:id="@+id/v_header"
             android:layout_width="match_parent"
@@ -102,6 +125,19 @@
             app:layout_constraintEnd_toEndOf="@+id/tv_credit_card_place_holder"
             app:layout_constraintStart_toStartOf="@+id/tv_credit_card_place_holder"
             app:layout_constraintTop_toBottomOf="@+id/tv_credit_card_place_holder" />
+
+        <Button
+            android:id="@+id/new_acc"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/purple_700"
+            android:text="@string/nova_conta"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintEnd_toEndOf="@+id/tv_account_place_holder"
+            app:layout_constraintStart_toStartOf="@+id/tv_account_place_holder"
+            app:layout_constraintTop_toBottomOf="@+id/tv_account_place_holder" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

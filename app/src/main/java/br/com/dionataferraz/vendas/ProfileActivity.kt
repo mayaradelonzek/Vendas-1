@@ -1,6 +1,7 @@
 package br.com.dionataferraz.vendas
 
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.dionataferraz.vendas.databinding.ActivityLoginBinding
@@ -14,11 +15,24 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityProfileBinding.inflate(layoutInflater)
+        ActivityProfileBinding.inflate(layoutInflater).run {
+            binding = this
+            setContentView(root)
+        }
+
+        setContentView(binding.root)
 
         binding.btSave.setOnClickListener {
-            Toast.makeText(this,  binding.rg.checkedRadioButtonId.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                binding.etName.text.toString() + "'s profile created",
+                Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun configureActionBar(){
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     data class Person(
@@ -37,12 +51,12 @@ class ProfileActivity : AppCompatActivity() {
         edit.putInt("age", 28)
         edit.apply()
 
-        /*findViewById<TextView>(R.id.tv_name).apply {
-            val name = sharedPreferences.getString("name", null)
-            val age = sharedPreferences.getInt("age", 0)
-            if (!name.isNullOrEmpty() && age > 0) {
-                text = "$name $age"
-            }
-        }*/
+//        findViewById<TextView>(R.id.tv_name).apply {
+//            val name = sharedPreferences.getString("name", null)
+//            val age = sharedPreferences.getInt("age", 0)
+//            if (!name.isNullOrEmpty() && age > 0) {
+//                text = "$name $age"
+//            }
+//        }
     }
 }

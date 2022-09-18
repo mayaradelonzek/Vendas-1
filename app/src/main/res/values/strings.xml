@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Vendas</string>
 
+    <string name="accSaved">accSaved</string>
+
     <string name="email">Email</string>
     <string name="password">Senha</string>
     <string name="login">Login</string>
@@ -15,4 +17,13 @@
     <string name="home_bank_balance">R$ 0,00</string>
     <string name="home_balance_available">Saldo disponivel</string>
     <string name="home_next_invoice">Próxima fatura</string>
+    <string name="nome_da_conta">Nome da Conta</string>
+    <string name="saldo">Saldo</string>
+    <string name="responsavel_da_conta">Responsável da Conta</string>
+    <string name="credito">Crédito</string>
+    <string name="debito">Débito</string>
+    <string name="nova_conta">Nova Conta</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_bottom_sheet">BottomSheetActivity</string>
+    <string name="clear">Limpar</string>
 </resources>

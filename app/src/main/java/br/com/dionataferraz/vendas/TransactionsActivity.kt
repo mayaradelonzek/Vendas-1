@@ -16,18 +16,6 @@ class TransactionsActivity : AppCompatActivity(),TransactionAdapter.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityTransactionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.button.setOnClickListener {
-            adapter.updateItem(
-                "MUDOU AQUI", 6
-            )
-/*            adapter.addNewList(
-                listOf(
-                    "Item 11",
-                    "Item 10",
-                    "Item 9"
-                )
-            )*/
-        }
 
         binding.rcList.adapter = adapter
         adapter.addList(
