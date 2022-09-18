@@ -12,7 +12,7 @@ class TransactionAdapter(private val listener: Listener) :
         fun onItemClick(text: String)
     }
 
-    private val listItem: MutableList<String> = mutableListOf()
+    private val listItem: MutableList<Transaction> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val binding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,16 +27,18 @@ class TransactionAdapter(private val listener: Listener) :
     override fun getItemCount(): Int {
         return listItem.size
     }
-    fun addNewList(list: List<String>) {
+
+    fun addNewList(list: List<Transaction>) {
         listItem.clear()
         notifyItemRangeRemoved(0, listItem.size)
         listItem.addAll(list)
     }
 
-    fun addList(list: List<String>) {
+    fun addList(list: List<Transaction>) {
         listItem.addAll(list)
     }
-    fun updateItem(item: String, position: Int) {
+
+    fun updateItem(item: Transaction, position: Int) {
         listItem[position] = item
         notifyItemChanged(position)
     }
@@ -48,10 +50,25 @@ class TransactionViewHolder(
     private val listener: TransactionAdapter.Listener
 ): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(name: String) {
-        binding.tvName.text = name
+    fun getIconByTransactionType(type: TransactionType): Int {
+        var icon = R.drawable.ic_baseline_attach_money_24
+
+        when {
+            TransactionType.BILL.equals(type) -> icon = R.drawable.ic_baseline_attach_money_24
+            TransactionType.LEISURE.equals(type) -> icon = R.drawable.ic_baseline_videogame_asset_24
+            TransactionType.MARKET.equals(type) -> icon = R.drawable.ic_baseline_shopping_cart_24
+        }
+
+        return icon
+    }
+
+    fun bind(transaction: Transaction) {
+        binding.tvName.text = transaction.name
+        binding.tvTime.text = transaction.time.hours.toString() + ":" + transaction.time.minutes.toString()
+        binding.tvAmount.text = "R$ " + transaction.amount.toString()
+        binding.icon.setCompoundDrawablesWithIntrinsicBounds(getIconByTransactionType(transaction.type), 0, 0, 0)
         binding.root.setOnClickListener {
-            listener.onItemClick(name)
+//            listener.onItemClick(transaction)
         }
     }
 }

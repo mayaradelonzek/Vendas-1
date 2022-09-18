@@ -14,13 +14,66 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="40dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="30dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="30dp" />
+
+            <TextView
+                android:id="@+id/icon"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:textSize="15sp"
+                android:gravity="end"
+                app:layout_constraintRight_toLeftOf="@+id/guideline1"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                tools:text="icon" />
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:textSize="15sp"
+                android:gravity="end"
+                app:layout_constraintRight_toLeftOf="@+id/guideline3"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                tools:text="amount" />
+
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="20sp"
-                tools:text="Card item" />
+                android:layout_width="180dp"
+                android:layout_height="20dp"
+                android:gravity="start"
+                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="@+id/guideline1"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                tools:text="name" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:gravity="start"
+                android:textSize="15sp"
+                app:layout_constraintLeft_toLeftOf="@+id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/guideline2"
+                tools:text="time" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

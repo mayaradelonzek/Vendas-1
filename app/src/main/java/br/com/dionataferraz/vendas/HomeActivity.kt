@@ -28,6 +28,12 @@ class HomeActivity : AppCompatActivity() {
             val intent  = Intent(this, AccountActivity::class.java)
             startActivity(intent)
         }
+
+        binding.listTransac.setOnClickListener {
+//            viewModel.login(null, null)
+            val intent  = Intent(this, TransactionsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun configureActionBar(){

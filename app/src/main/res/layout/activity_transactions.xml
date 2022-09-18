@@ -8,12 +8,12 @@
         android:layout_height="match_parent"
         tools:context=".TransactionsActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rc_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_list" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rc_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
