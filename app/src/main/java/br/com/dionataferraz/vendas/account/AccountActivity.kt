@@ -4,15 +4,15 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import br.com.dionataferraz.vendas.HomeActivity
 import br.com.dionataferraz.vendas.R
 import br.com.dionataferraz.vendas.account.data.Account
 import br.com.dionataferraz.vendas.databinding.ActivityAccountBinding
+import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlin.math.pow
+
 
 class AccountActivity : AppCompatActivity() {
 
@@ -29,37 +29,75 @@ class AccountActivity : AppCompatActivity() {
         configureActionBar()
         setContentView(binding.root)
         viewModel = AccountViewModel()
+        setupAccPref()
 
         binding.btSave.setOnClickListener {
             val description = binding.descriptionET.text.toString()
-            val value = binding.valueET.text.toString().toDouble().pow(2)
+            val value = with(binding.valueET.text.toString()) { if (this.isBlank()) 0.0 else this.toDouble() }
             val responsible = binding.responsibleET.text.toString()
             val credit = binding.creditAcc.isChecked
             val debit = binding.debitAcc.isChecked
-            createAcc(description, value, responsible, credit, debit)
-            toastConfig("Conta criada com sucesso!", this)
 
+            createAcc(description, value , responsible, credit, debit)
+        }
+
+        binding.btClear.setOnClickListener {
+            val sharedPreferences = getSharedPreferences("accPrefs", Context.MODE_PRIVATE)
+                .edit()
+                .clear()
+                .commit();
+
+            toastConfig("Informações resetadas com sucesso!", this)
             val intent  = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
     }
 
-    fun createAcc(description: String, value: Double, responsible: String, credit: Boolean, debit: Boolean) {
-        val sharedPreferences = getSharedPreferences("accPreferences", MODE_PRIVATE);
+    fun getAccAdapter(): JsonAdapter<Account>? {
         val moshi = Moshi
             .Builder()
             .addLast(KotlinJsonAdapterFactory())
             .build()
 
-        val adapter = moshi
-            .adapter(Account::class.java)
+        return moshi.adapter(Account::class.java);
+    }
 
-        viewModel.accountLiveData.observe(this) { acc ->
-            val save = adapter.toJson(acc)
+    fun createAcc(description: String, value: Double, responsible: String, credit: Boolean, debit: Boolean) {
+        viewModel.validateAcc(description, value, responsible, credit, debit);
+        val sharedPreferences = getSharedPreferences("accPrefs", Context.MODE_PRIVATE);
+        val adapter = getAccAdapter();
+
+        viewModel.account.observe(this) { acc ->
+            val save = adapter?.toJson(acc)
             sharedPreferences
                 .edit()
-                .putString("Account", save)
+                .putString(getString(R.string.accSaved), save)
                 .apply()
+
+            toastConfig("Conta criada com sucesso!", this)
+
+            val intent  = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewModel.error.observe(this) { msgErr ->
+            toastConfig(msgErr, this)
+        }
+    }
+
+    private fun setupAccPref() {
+        val sharedPreferences = getSharedPreferences("accPrefs", MODE_PRIVATE);
+        val accPrefsJson = sharedPreferences.getString(getString(R.string.accSaved), "");
+
+        if (!accPrefsJson.isNullOrBlank()) {
+            val adapter = getAccAdapter();
+            val acc = adapter?.fromJson(accPrefsJson);
+
+            binding.descriptionET.setText(acc?.description)
+            binding.valueET.setText(acc?.value.toString())
+            binding.responsibleET.setText(acc?.responsible)
+            acc?.credit?.let { binding.creditAcc.setChecked(it) }
+            acc?.debit?.let { binding.debitAcc.setChecked(it) }
         }
     }
 

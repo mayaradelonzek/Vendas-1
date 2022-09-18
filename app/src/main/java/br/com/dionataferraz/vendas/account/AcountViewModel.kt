@@ -7,29 +7,37 @@ import br.com.dionataferraz.vendas.account.data.Account
 
 class AccountViewModel : ViewModel() {
 
-    private val error: MutableLiveData<String> = MutableLiveData()
-    val shouldShowError: LiveData<String> = error
-    private val account: MutableLiveData<Account> = MutableLiveData()
-    val accountLiveData: LiveData<Account> = account
+    var error: MutableLiveData<String> = MutableLiveData()
+    var account = MutableLiveData<Account>()
 
-    fun createAcc(description: String?, value: Double?, responsible: String?, credit: Boolean, debit: Boolean) {
-        if (description.isNullOrBlank())
-            error.value = "Preencha o nome da conta"
-        else if (value != null) {
-            if (value > 0) {
-                error.value = "O saldo deve ser maior que zero"
-            } else if (responsible.isNullOrBlank())
-                error.value = "Preencha o reponsável da conta"
-            else {
-                val accCreated = Account(
-                    description = description,
-                    value = value,
-                    responsible = responsible,
-                    credit = credit,
-                    debit = debit
-                )
-                account.value = accCreated
-            }
+    fun validateAcc(description: String?, value: Double, responsible: String?, credit: Boolean, debit: Boolean) {
+        if (description.isNullOrBlank()) {
+            error.value = "Preencha o campo Nome da Conta"
+            return
         }
+
+        if (value <= 0) {
+            error.value = "Preencha o campo Saldo com valor maior que zero"
+            return
+        }
+
+        if (responsible.isNullOrBlank()) {
+            error.value = "Preencha o campo Responsável da Conta"
+            return
+        }
+
+        if (!credit && !debit) {
+            error.value = "Preencha umas das opções de conta"
+            return
+        }
+
+        val accCreated = Account(
+            description = description,
+            value = value,
+            responsible = responsible,
+            credit = credit,
+            debit = debit
+        )
+        account.value = accCreated
     }
 }

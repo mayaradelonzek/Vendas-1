@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Vendas</string>
 
+    <string name="accSaved">accSaved</string>
+
     <string name="email">Email</string>
     <string name="password">Senha</string>
     <string name="login">Login</string>
@@ -22,5 +24,6 @@
     <string name="debito">Débito</string>
     <string name="nova_conta">Nova Conta</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_bottom_sheet">BottomSheetActivity</string>    
+    <string name="title_activity_bottom_sheet">BottomSheetActivity</string>
+    <string name="clear">Limpar</string>
 </resources>
