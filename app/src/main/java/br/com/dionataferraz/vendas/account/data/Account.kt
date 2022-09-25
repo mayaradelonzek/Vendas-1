@@ -1,9 +1,12 @@
 package br.com.dionataferraz.vendas.account.data
 
+import br.com.dionataferraz.vendas.account.data.local.Operation
+import java.util.*
+
 data class Account(
-    val description: String,
+    val id: Int,
     val value: Double,
-    val responsible: String,
-    val credit: Boolean,
-    val debit: Boolean
+    val date: Date,
+    val type: Operation
 )
+

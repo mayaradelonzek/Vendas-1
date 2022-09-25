@@ -18,33 +18,16 @@
             app:title="Create Account"
             app:titleTextColor="@android:color/white" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:paddingHorizontal="16dp"
-            android:id="@+id/ti_acc_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/ti_saldo"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/descriptionET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/nome_da_conta"
-                android:imeOptions="actionNext"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:paddingHorizontal="16dp"
             android:id="@+id/ti_saldo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/responsible_acc"
-            app:layout_constraintTop_toBottomOf="@+id/ti_acc_name">
+            android:layout_marginTop="250dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bt_deposit"
+            app:layout_constraintTop_toBottomOf="@+id/create_acc_toolbar">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/valueET"
@@ -55,66 +38,25 @@
                 android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:paddingHorizontal="16dp"
-            android:id="@+id/responsible_acc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/acc_type"
-            app:layout_constraintTop_toBottomOf="@+id/ti_saldo">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/responsibleET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/responsavel_da_conta"
-                android:imeOptions="actionNext"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <RadioGroup
-            android:paddingHorizontal="16dp"
-            android:id="@+id/acc_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/responsible_acc">
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/credit_acc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/credito" />
-
-            <com.google.android.material.radiobutton.MaterialRadioButton
-                android:id="@+id/debit_acc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/debito" />
-
-        </RadioGroup>
-
         <com.google.android.material.button.MaterialButton
             android:layout_marginEnd="16dp"
-            android:id="@+id/bt_save"
+            android:id="@+id/bt_deposit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save"
+            android:text="@string/depositar"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/acc_type" />
+            app:layout_constraintTop_toBottomOf="@+id/ti_saldo" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/bt_clear"
+            android:id="@+id/bt_redeem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="@string/clear"
+            android:layout_marginTop="20dp"
+            android:text="@string/resgatar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/acc_type" />
+            app:layout_constraintTop_toBottomOf="@+id/ti_saldo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
