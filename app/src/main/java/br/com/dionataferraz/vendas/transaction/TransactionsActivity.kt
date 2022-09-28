@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import br.com.dionataferraz.vendas.App
 import br.com.dionataferraz.vendas.TransactionAdapter
-import br.com.dionataferraz.vendas.account.data.local.AccountDatabase
-import br.com.dionataferraz.vendas.account.data.local.Operation
 import br.com.dionataferraz.vendas.databinding.ActivityTransactionsBinding
 import br.com.dionataferraz.vendas.transaction.data.TransactionDatabase
 import br.com.dionataferraz.vendas.transaction.data.TransactionEntity
@@ -36,6 +34,7 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityTransactionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        configureActionBar()
 
         binding.rcList.adapter = adapter
 
@@ -85,5 +84,10 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
 
     private fun getTransactionList(): List<TransactionEntity> {
         return databaseTransac.DAO().getTransactions()
+    }
+
+    private fun configureActionBar(){
+        setSupportActionBar(binding.transactionstoolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }
