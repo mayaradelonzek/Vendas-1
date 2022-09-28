@@ -6,7 +6,7 @@ import br.com.dionataferraz.vendas.account.data.local.AccountEntity
 
 class findAccountUseCase(private val id: Int) {
 
-    private val database: AccountDatabase by lazy {
+    private val database by lazy {
         AccountDatabase.getInstance(context = App.context)
     }
 

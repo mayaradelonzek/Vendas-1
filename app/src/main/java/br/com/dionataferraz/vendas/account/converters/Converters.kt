@@ -1,8 +1,14 @@
 package br.com.dionataferraz.vendas.account.converters
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
-import br.com.dionataferraz.vendas.account.data.local.Operation
-import java.util.Date
+import br.com.dionataferraz.vendas.transaction.TransactionType
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.temporal.ChronoField
+import java.util.*
 
 class Converters {
 
@@ -17,13 +23,13 @@ class Converters {
     }
 
     @TypeConverter
-    fun toTypeEnum(string: String?): Operation? {
-        return string?.let { Operation.valueOf(it) }
+    fun toTypeEnum(string: String?): TransactionType? {
+        return string?.let { TransactionType.valueOf(it) }
     }
 
     @TypeConverter
-    fun fromTypeEnum(type: Operation?): String {
-        if (type == null) return Operation.DEPOSIT.name
+    fun fromTypeEnum(type: TransactionType?): String {
+        if (type == null) return TransactionType.GAS_STATION.name
 
         return type.name
     }

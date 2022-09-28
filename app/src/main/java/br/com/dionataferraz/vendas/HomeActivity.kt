@@ -1,13 +1,20 @@
 package br.com.dionataferraz.vendas
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import br.com.dionataferraz.vendas.account.AccountActivity
 import br.com.dionataferraz.vendas.account.data.local.AccountDatabase
 import br.com.dionataferraz.vendas.account.data.local.AccountEntity
-import br.com.dionataferraz.vendas.account.data.local.Operation
 import br.com.dionataferraz.vendas.databinding.ActivityHomeBinding
+import br.com.dionataferraz.vendas.login.data.local.VendasDatabase
+import br.com.dionataferraz.vendas.schedulers.MJobScheduler
 import br.com.dionataferraz.vendas.transaction.TransactionsActivity
 import java.util.*
 
@@ -19,6 +26,22 @@ class HomeActivity : AppCompatActivity() {
         AccountDatabase.getInstance(context = App.context)
     }
 
+    private val databaseUser: VendasDatabase by lazy {
+        VendasDatabase.getInstance(context = App.context)
+    }
+
+    companion object {
+        val JOB_ID: Int = 101
+        var counter: Int = 0
+
+        fun countSeconds() {
+            counter++;
+        }
+    }
+
+    private lateinit var jobScheduler: JobScheduler
+    private lateinit var jobInfo: JobInfo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityHomeBinding.inflate(layoutInflater).run {
@@ -27,9 +50,16 @@ class HomeActivity : AppCompatActivity() {
         }
 
         setContentView(binding.root)
+        var cn: ComponentName = ComponentName(this, MJobScheduler::class.java)
+        var builder: JobInfo.Builder = JobInfo.Builder(JOB_ID, cn)
+        builder.setPeriodic(5000)
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+        builder.setPersisted(true)
+        jobInfo = builder.build()
+        jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+
         configureActionBar()
-        configureAcc()
-        setSaldo()
+        setViewValues()
 
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
@@ -49,28 +79,39 @@ class HomeActivity : AppCompatActivity() {
             val intent  = Intent(this, TransactionsActivity::class.java)
             startActivity(intent)
         }
+
+        scheduleJob()
     }
 
-    private fun setSaldo() {
-        val account = databaseAcc.AccDao().getAccount(1)
-        binding.tvAccountBalance.text = "R$ " + account.value.toString()
+    fun scheduleJob() {
+        jobScheduler.schedule(jobInfo)
+        Toast.makeText(this, "Job schedule...", Toast.LENGTH_LONG).show()
     }
 
-    private fun configureAcc() {
-        val account = databaseAcc.AccDao().getAccount(1)
+    fun clearJob(v: View) {
+        jobScheduler.cancel(JOB_ID)
+//        jobScheduler.cancelAll() //cancel all jobs
+        Toast.makeText(this, "Job Cancelled...", Toast.LENGTH_LONG).show()
+    }
 
-        if (account == null) {
-            val dao = databaseAcc.AccDao()
-            val acc = AccountEntity(
+    fun getAccValues(): AccountEntity {
+        val account = databaseAcc.AccDao().getAccount()
+        if (account.isEmpty()) {
+            val newAcc = AccountEntity(
                 id = 1,
-                value = 300.00,
-                date = Date(2021, 12, 5, 10, 0),
-                type = Operation.DEPOSIT
+                value = 0.0,
+                date = Date()
             )
-
-            dao.insertAccount(acc)
+            databaseAcc.AccDao().insertAccount(newAcc)
         }
+        return databaseAcc.AccDao().getAccount().get(0)
+    }
 
+    private fun setViewValues() {
+       val account = getAccValues()
+        val user = databaseUser.DAO().getUser().get(0)
+        binding.tvAccountBalance.text = "R$ " + account.value.toString()
+        binding.tvLoggedUser.text = user.name
     }
 
     private fun configureActionBar(){

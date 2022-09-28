@@ -9,6 +9,7 @@ import br.com.dionataferraz.vendas.HomeActivity
 import br.com.dionataferraz.vendas.databinding.ActivityLoginBinding
 import br.com.dionataferraz.vendas.login.data.local.UserEntity
 import br.com.dionataferraz.vendas.login.data.local.VendasDatabase
+import br.com.dionataferraz.vendas.profile.ProfileActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,8 +38,24 @@ class LoginActivity : AppCompatActivity() {
             )
         }
 
-        viewModel.shouldShowHome.observe(this) { shouldShow ->
-            if (shouldShow) {
+        binding.register.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewModel.shouldShowHome.observe(this) { userResponse ->
+            if (userResponse != null) {
+                val user = database.DAO().getUser()
+                if(user.isEmpty()) {
+                    database.DAO().insertUser(
+                        UserEntity(
+                            id = userResponse.id,
+                            name = userResponse.name,
+                            email = userResponse.email,
+                            password = userResponse.password,
+                        )
+                    )
+                }
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
             }
@@ -54,16 +71,10 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-            database.DAO().insertUser(
-                UserEntity(
-                    name = "Dionata Leonel",
-                    email = "dionataferraz1@gmail.com",
-                    password = "123456",
-                )
-            )
-            val users = database.DAO().getUser()
-            Log.e("DAO", users.toString())
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//
+//            val users = database.DAO().getUser()
+//            Log.e("DAO", users.toString())
+//        }
     }
 }

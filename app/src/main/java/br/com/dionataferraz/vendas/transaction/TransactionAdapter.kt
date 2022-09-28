@@ -4,10 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import br.com.dionataferraz.vendas.account.data.local.Operation
 import br.com.dionataferraz.vendas.databinding.ItemListBinding
-import br.com.dionataferraz.vendas.transaction.data.TransactionEntity
+import br.com.dionataferraz.vendas.transaction.TransactionType
+import br.com.dionataferraz.vendas.transaction.local.TransactionEntity
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
 
 class TransactionAdapter(private val listener: Listener) :
@@ -34,18 +35,28 @@ class TransactionAdapter(private val listener: Listener) :
     }
 
     fun addNewList(list: List<TransactionEntity>) {
-        listItem.clear()
+        clear()
         notifyItemRangeRemoved(0, listItem.size)
         listItem.addAll(list)
     }
 
     fun addList(list: List<TransactionEntity>) {
+        listItem.clear()
         listItem.addAll(list)
     }
 
     fun updateItem(item: TransactionEntity, position: Int) {
         listItem[position] = item
         notifyItemChanged(position)
+    }
+
+    fun getItemByPosition(position: Int): TransactionEntity {
+        return listItem[position]
+    }
+
+    fun clear() {
+        listItem.clear()
+        notifyDataSetChanged()
     }
 
 }
@@ -55,12 +66,13 @@ class TransactionViewHolder(
     private val listener: TransactionAdapter.Listener
 ): RecyclerView.ViewHolder(binding.root) {
 
-    fun getIconByTransactionType(type: Operation): Int {
+    fun getIconByTransactionType(type: TransactionType): Int {
         var icon = R.drawable.ic_baseline_arrow_drop_down_24
 
         when {
-            Operation.WITHDRAW.equals(type) -> icon = R.drawable.ic_baseline_arrow_drop_down_24
-            Operation.DEPOSIT.equals(type) -> icon = R.drawable.ic_baseline_arrow_drop_up_24
+            TransactionType.MARKET.equals(type) -> icon = R.drawable.ic_baseline_shopping_cart_24
+            TransactionType.GAS_STATION.equals(type) -> icon = R.drawable.ic_baseline_arrow_drop_up_24
+            TransactionType.PUB.equals(type) -> icon = R.drawable.ic_baseline_arrow_drop_down_24
         }
 
         return icon
@@ -72,12 +84,13 @@ class TransactionViewHolder(
         return SimpleDateFormat("dd MMM yyyy HH:mm", loc).format(date)
     }
 
-    fun getFormatedName(operation: Operation): String {
+    fun getFormatedName(operation: TransactionType): String {
         var name = ""
 
         when {
-            Operation.WITHDRAW.equals(operation) -> name = "Dinheiro resgatado"
-            Operation.DEPOSIT.equals(operation) -> name = "Depósito"
+            TransactionType.PUB.equals(operation) -> name = "Cachaça"
+            TransactionType.GAS_STATION.equals(operation) -> name = "Adeus dinheiro"
+            TransactionType.MARKET.equals(operation) -> name = "Corona"
         }
 
         return name
@@ -85,10 +98,10 @@ class TransactionViewHolder(
 
     @SuppressLint("SetTextI18n")
     fun bind(transaction: TransactionEntity) {
-        binding.tvName.text = getFormatedName(transaction.type)
+        binding.tvName.text = getFormatedName(transaction.transactionType)
         binding.tvTime.text = getFormatedDate(transaction.time)
         binding.tvAmount.text = "R$ " + transaction.amount.toString()
-        binding.icon.setCompoundDrawablesWithIntrinsicBounds(getIconByTransactionType(transaction.type), 0, 0, 0)
+        binding.icon.setCompoundDrawablesWithIntrinsicBounds(getIconByTransactionType(transaction.transactionType), 0, 0, 0)
         binding.root.setOnClickListener {
 //            listener.onItemClick(transaction)
         }

@@ -1,17 +1,17 @@
-package br.com.dionataferraz.vendas.login.domain.usecase
+package br.com.dionataferraz.vendas.profile.domain.usecase
 
 import br.com.dionataferraz.vendas.login.data.remote.ErrorModel
 import br.com.dionataferraz.vendas.login.data.remote.Result
 import br.com.dionataferraz.vendas.login.data.repository.LoginRepository
+import br.com.dionataferraz.vendas.login.data.request.NewUserRequest
 import br.com.dionataferraz.vendas.login.data.response.UserResponse
 
-class GetLoginUsecase {
+class RegisterUserUsecase {
     private val repository by lazy {
         LoginRepository()
     }
 
-    suspend fun login(email: String, password: String): Result<UserResponse, ErrorModel> {
-        return repository.login(password = password, email = email)
+    suspend fun regster(newUserRequest: NewUserRequest): Result<UserResponse, ErrorModel> {
+        return repository.register(newUserRequest)
     }
-
 }

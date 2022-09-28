@@ -1,4 +1,4 @@
-package br.com.dionataferraz.vendas.transaction.data
+package br.com.dionataferraz.vendas.transaction.local
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -12,4 +12,5 @@ interface TransactionDao {
 
     @Query("SELECT * from transactionTable")
     fun getTransactions(): List<TransactionEntity>
+
 }

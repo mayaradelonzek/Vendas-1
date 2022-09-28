@@ -9,7 +9,6 @@ data class AccountEntity (
 
     @PrimaryKey val id: Int,
     var value: Double,
-    val date: Date,
-    val type: Operation
+    val date: Date
 
 )
