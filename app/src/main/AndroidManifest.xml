@@ -26,7 +26,8 @@
             android:parentActivityName=".login.LoginActivity" />
         <activity
             android:name=".transaction.TransactionsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
         <activity
             android:name=".profile.ProfileActivity"
             android:exported="false" />

@@ -25,7 +25,7 @@ class AccountActivity : AppCompatActivity() {
             setContentView(root)
         }
 
-//        configureActionBar()
+        configureActionBar()
         setContentView(binding.root)
         viewModel = AccountViewModel()
 
@@ -60,8 +60,6 @@ class AccountActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-
-
     }
 
     fun configureWithdraw() {
@@ -76,6 +74,11 @@ class AccountActivity : AppCompatActivity() {
 
         return moshi.adapter(Account::class.java);
     }
+
+    private fun configureActionBar(){
+        setSupportActionBar(binding.createAccToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 }
 
 fun toastConfig(message: String, context: Context) {
@@ -85,8 +88,4 @@ fun toastConfig(message: String, context: Context) {
         Toast.LENGTH_LONG
     ).show()
 }
-//
-//    private fun configureActionBar(){
-//        setSupportActionBar(binding.createAccToolbar)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//    }
+

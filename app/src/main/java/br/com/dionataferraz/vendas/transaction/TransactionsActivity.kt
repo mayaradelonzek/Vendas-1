@@ -27,6 +27,7 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityTransactionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        configureActionBar()
 
         viewModel = TransactionViewModel()
         viewModel.updateTrasactionView()
@@ -87,5 +88,14 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
             text,
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    private fun getTransactionList(): List<TransactionEntity> {
+        return databaseTransac.DAO().getTransactions()
+    }
+
+    private fun configureActionBar(){
+        setSupportActionBar(binding.transactionstoolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }
