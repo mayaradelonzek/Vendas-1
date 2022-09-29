@@ -31,4 +31,8 @@
     <string name="novo_por_aqui">Novo por aqui?</string>
     <string name="registrar">Registrar</string>
     <string name="novo_por_aqui2">Novo por aqui?</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="remover">Remover</string>
+    <string name="depositar">Depositar</string>
+    <string name="resgatar">Resgatar</string>
 </resources>

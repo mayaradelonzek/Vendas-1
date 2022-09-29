@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import br.com.dionataferraz.vendas.transaction.data.Transaction
+import br.com.dionataferraz.vendas.App
 import br.com.dionataferraz.vendas.TransactionAdapter
 import br.com.dionataferraz.vendas.databinding.ActivityTransactionsBinding
+import br.com.dionataferraz.vendas.transaction.data.TransactionDatabase
+import br.com.dionataferraz.vendas.transaction.data.TransactionEntity
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -23,19 +25,25 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
         TransactionAdapter(this)
     }
 
+    private val databaseTransac: TransactionDatabase by lazy {
+        TransactionDatabase.getInstance(context = App.context)
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTransactionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        configureActionBar()
 
         binding.rcList.adapter = adapter
 
-        setupTransactionList()?.let { adapter.addList(it) }
+        adapter.addList(getTransactionList())
+//        setupTransactionList()?.let { adapter.addList(it) }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun setupTransactionList(): List<Transaction>? {
+    private fun setupTransactionList(): List<TransactionEntity>? {
         val sharedPreferences = getSharedPreferences("transacListPrefs", Context.MODE_PRIVATE);
         var jsonTransactions = sharedPreferences.getString("transactionList", "");
         val jsonAdapter = getJsonTransactionListAdapter();
@@ -55,13 +63,13 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
         return listTransactionJson
     }
 
-    fun getJsonTransactionListAdapter(): JsonAdapter<List<Transaction>>? {
+    fun getJsonTransactionListAdapter(): JsonAdapter<List<TransactionEntity>>? {
         val moshi = Moshi
             .Builder()
             .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
             .addLast(KotlinJsonAdapterFactory())
             .build()
-        val listType = Types.newParameterizedType(List::class.java, Transaction::class.java)
+        val listType = Types.newParameterizedType(List::class.java, TransactionEntity::class.java)
 
         return moshi.adapter(listType)
     }
@@ -74,33 +82,12 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
         ).show()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getTransactionList(): List<Transaction> {
-        return listOf(
-            Transaction(
-                time = Date(2021, 12, 5, 10, 0),
-                amount = 10.00,
-                name = "Zaffari",
-                type = TransactionType.MARKET
-            ),
-            Transaction(
-                time = Date(2021, 12, 19, 5, 15),
-                amount = 55.56,
-                name = "Cinemark",
-                type = TransactionType.LEISURE
-            ),
-            Transaction(
-                time = Date(2021, 12, 5, 16, 50),
-                amount = 130.66,
-                name = "CEEE",
-                type = TransactionType.BILL
-            ),
-            Transaction(
-                time = Date(2021, 12, 5, 9, 43),
-                amount = 39.76,
-                name = "Netflix",
-                type = TransactionType.BILL
-            )
-        )
+    private fun getTransactionList(): List<TransactionEntity> {
+        return databaseTransac.DAO().getTransactions()
+    }
+
+    private fun configureActionBar(){
+        setSupportActionBar(binding.transactionstoolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

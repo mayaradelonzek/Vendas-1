@@ -11,9 +11,11 @@ class LoginDataSource {
 
     suspend fun login(email:String, password:String):Result<UserResponse, ErrorModel> {
         return withContext(Dispatchers.IO) {
+//            try {
+//                var user = service.login(email, password)
+//                Result.Success(user)
             try {
-                var user = service.login(email, password)
-                Result.Success(user)
+                Result.Success(UserResponse("a", "a", "1"))
             } catch (exception:Exception){
                 Result.Error(ErrorModel)
             }

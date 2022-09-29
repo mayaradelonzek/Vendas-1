@@ -4,40 +4,46 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.dionataferraz.vendas.account.data.Account
+import br.com.dionataferraz.vendas.account.data.local.AccountDatabase
+import br.com.dionataferraz.vendas.account.data.local.AccountEntity
+import br.com.dionataferraz.vendas.account.data.local.Operation
+import br.com.dionataferraz.vendas.account.usecase.findAccountUseCase
+import br.com.dionataferraz.vendas.account.usecase.updateAccountUseCase
 
 class AccountViewModel : ViewModel() {
 
-    var error: MutableLiveData<String> = MutableLiveData()
-    var account = MutableLiveData<Account>()
+    var error = MutableLiveData<String>()
+    var success = MutableLiveData<Double>()
 
-    fun validateAcc(description: String?, value: Double, responsible: String?, credit: Boolean, debit: Boolean) {
-        if (description.isNullOrBlank()) {
-            error.value = "Preencha o campo Nome da Conta"
-            return
+    fun withdrawAcc(id: Int, amount: Double) {
+        try {
+            val acc = findAccountUseCase(id).invoke()
+            validateWithdraw(amount, acc.value)
+            updateAccountUseCase(
+                acc = acc,
+                operation = Operation.WITHDRAW,
+                amount = amount).withdraw()
+            success.value = amount
+        } catch (e: RuntimeException) {
+            println(e.message)
         }
 
-        if (value <= 0) {
-            error.value = "Preencha o campo Saldo com valor maior que zero"
-            return
-        }
+    }
 
-        if (responsible.isNullOrBlank()) {
-            error.value = "Preencha o campo Responsável da Conta"
-            return
-        }
+    fun depositAcc(id: Int, amount: Double) {
+        val acc = findAccountUseCase(id).invoke()
+        updateAccountUseCase(
+            acc = acc,
+            operation = Operation.DEPOSIT,
+            amount = amount).deposit()
+        success.value = amount
+    }
 
-        if (!credit && !debit) {
-            error.value = "Preencha umas das opções de conta"
-            return
+    @Throws(RuntimeException::class)
+    private fun validateWithdraw(withdrawal: Double, balance: Double) {
+        if (withdrawal > balance) {
+            error.value = "Valor do saque deve ser menor que o saldo"
+            throw RuntimeException("Valor do saque deve ser menor que o saldo")
         }
-
-        val accCreated = Account(
-            description = description,
-            value = value,
-            responsible = responsible,
-            credit = credit,
-            debit = debit
-        )
-        account.value = accCreated
     }
 }
