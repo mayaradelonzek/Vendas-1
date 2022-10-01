@@ -22,14 +22,7 @@ class updateAccountUseCase(private val acc: AccountEntity,
         database.AccDao().updateAccount(acc)
     }
 
-    fun withdraw() {
-        acc.value -= amount
-        invoke()
-    }
-
-    fun deposit() {
+    fun credit() {
         acc.value += amount
-        invoke()
     }
-
 }

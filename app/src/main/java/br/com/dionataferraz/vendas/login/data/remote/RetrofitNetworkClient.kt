@@ -28,7 +28,6 @@ object RetrofitNetworkClient {
             .build()
     )
 
-
     private fun httpClient():OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(loginInterceptor())

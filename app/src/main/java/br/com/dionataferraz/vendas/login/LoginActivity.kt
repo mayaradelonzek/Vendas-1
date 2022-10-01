@@ -65,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
             if (shouldShow) {
                 Toast.makeText(
                     this,
-                    "usuário e/ou senha incorreto(s)",
+                    "Usuário e/ou senha incorreto(s)",
                     Toast.LENGTH_LONG
                 ).show()
             }

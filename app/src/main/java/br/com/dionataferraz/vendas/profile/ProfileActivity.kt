@@ -41,7 +41,7 @@ class ProfileActivity : AppCompatActivity() {
                 startActivity(intent)
                 Toast.makeText(
                     this,
-                    binding.etName.text.toString() + "'s profile created",
+                    "Perfil de " + binding.etName.text.toString() + " criado",
                     Toast.LENGTH_LONG).show()
             }
         }
@@ -50,7 +50,7 @@ class ProfileActivity : AppCompatActivity() {
             if (shouldShow) {
                 Toast.makeText(
                     this,
-                    "preencha os campos corretamente",
+                    "Preencha os campos corretamente",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -58,8 +58,6 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun configureActionBar(){
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
 }

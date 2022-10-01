@@ -71,8 +71,8 @@ class TransactionViewHolder(
 
         when {
             TransactionType.MARKET.equals(type) -> icon = R.drawable.ic_baseline_shopping_cart_24
-            TransactionType.GAS_STATION.equals(type) -> icon = R.drawable.ic_baseline_arrow_drop_up_24
-            TransactionType.PUB.equals(type) -> icon = R.drawable.ic_baseline_arrow_drop_down_24
+            TransactionType.GAS_STATION.equals(type) -> icon = R.drawable.ic_baseline_local_gas_station_24
+            TransactionType.PUB.equals(type) -> icon = R.drawable.ic_baseline_local_bar_24
         }
 
         return icon
@@ -88,9 +88,9 @@ class TransactionViewHolder(
         var name = ""
 
         when {
-            TransactionType.PUB.equals(operation) -> name = "Cachaça"
-            TransactionType.GAS_STATION.equals(operation) -> name = "Adeus dinheiro"
-            TransactionType.MARKET.equals(operation) -> name = "Corona"
+            TransactionType.PUB.equals(operation) -> name = "Pub"
+            TransactionType.GAS_STATION.equals(operation) -> name = "Combustível"
+            TransactionType.MARKET.equals(operation) -> name = "Supermercado"
         }
 
         return name

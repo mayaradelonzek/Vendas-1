@@ -29,24 +29,31 @@ class AccountActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = AccountViewModel()
 
-        binding.btDeposit.setOnClickListener {
+        binding.btMarket.setOnClickListener {
             val value =
                 with(binding.valueET.text.toString()) { if (this.isBlank()) 0.0 else this.toDouble() }
 
-            viewModel.depositAcc(1, value)
+            viewModel.marketAcc(1, value)
         }
 
-        binding.btRedeem.setOnClickListener {
+        binding.btPub.setOnClickListener {
             val value =
                 with(binding.valueET.text.toString()) { if (this.isBlank()) 0.0 else this.toDouble() }
 
-            viewModel.withdrawAcc(1, value)
+            viewModel.pubAcc(1, value)
+        }
+
+        binding.btGasStation.setOnClickListener {
+            val value =
+                with(binding.valueET.text.toString()) { if (this.isBlank()) 0.0 else this.toDouble() }
+
+            viewModel.gasStationAcc(1, value)
         }
 
         viewModel.success.observe(this) { valorRetirada ->
             Toast.makeText(
                 this,
-                "saldo atualizado com sucesso",
+                "Compra realizada",
                 Toast.LENGTH_LONG
             ).show()
             val intent = Intent(this, HomeActivity::class.java)
@@ -60,10 +67,6 @@ class AccountActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             ).show()
         }
-    }
-
-    fun configureWithdraw() {
-
     }
 
     fun getAccAdapter(): JsonAdapter<Account>? {

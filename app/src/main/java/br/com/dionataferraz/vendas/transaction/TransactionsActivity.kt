@@ -8,8 +8,11 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import br.com.dionataferraz.vendas.App
 import br.com.dionataferraz.vendas.TransactionAdapter
 import br.com.dionataferraz.vendas.databinding.ActivityTransactionsBinding
+import br.com.dionataferraz.vendas.login.data.local.VendasDatabase
+import br.com.dionataferraz.vendas.transaction.local.TransactionDatabase
 import br.com.dionataferraz.vendas.transaction.local.TransactionEntity
 import kotlin.streams.toList
 
@@ -88,6 +91,10 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
             text,
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    private val databaseTransac: TransactionDatabase by lazy {
+        TransactionDatabase.getInstance(context = App.context)
     }
 
     private fun getTransactionList(): List<TransactionEntity> {

@@ -33,5 +33,4 @@ class Converters {
 
         return type.name
     }
-
 }

@@ -25,7 +25,6 @@ class AccountDataSource : AppCompatActivity() {
             Log.e("account", account.toString())
         }
     }
-
 }
 
 object ErrorModel

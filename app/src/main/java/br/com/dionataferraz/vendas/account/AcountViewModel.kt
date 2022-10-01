@@ -1,6 +1,5 @@
 package br.com.dionataferraz.vendas.account
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,10 +15,9 @@ class AccountViewModel : ViewModel() {
     var error = MutableLiveData<String>()
     var success = MutableLiveData<Double>()
 
-    fun withdrawAcc(id: Int, amount: Double) {
+    fun gasStationAcc(id: Int, amount: Double) {
         try {
             val acc = findAccountUseCase(id).invoke()
-            validateWithdraw(amount, acc.value)
 
             val newTransaction = TransactionRequest(
                 value = amount,
@@ -33,15 +31,37 @@ class AccountViewModel : ViewModel() {
 
             updateAccountUseCase(
                 acc = acc,
-                amount = amount).withdraw()
+                amount = amount).credit()
             success.value = amount
         } catch (e: RuntimeException) {
             println(e.message)
         }
-
     }
 
-    fun depositAcc(id: Int, amount: Double) {
+    fun pubAcc(id: Int, amount: Double) {
+        try {
+            val acc = findAccountUseCase(id).invoke()
+
+            val newTransaction = TransactionRequest(
+                value = amount,
+                description = TransactionType.PUB.name,
+                transactionType = TransactionType.PUB
+            )
+
+            viewModelScope.launch() {
+                InsertTransactionUsecase(newTransaction).register()
+            }
+
+            updateAccountUseCase(
+                acc = acc,
+                amount = amount).credit()
+            success.value = amount
+        } catch (e: RuntimeException) {
+            println(e.message)
+        }
+    }
+
+    fun marketAcc(id: Int, amount: Double) {
         val acc = findAccountUseCase(id).invoke()
 
         val newTransaction = TransactionRequest(
@@ -56,15 +76,15 @@ class AccountViewModel : ViewModel() {
 
         updateAccountUseCase(
             acc = acc,
-            amount = amount).deposit()
+            amount = amount).credit()
         success.value = amount
     }
 
-    @Throws(RuntimeException::class)
-    private fun validateWithdraw(withdrawal: Double, balance: Double) {
-        if (withdrawal > balance) {
-            error.value = "Valor do saque deve ser menor que o saldo"
-            throw RuntimeException("Valor do saque deve ser menor que o saldo")
-        }
-    }
+//    @Throws(RuntimeException::class)
+//    private fun validateWithdraw(withdrawal: Double, balance: Double) {
+//        if (withdrawal > balance) {
+//            error.value = "Valor do saque deve ser menor que o saldo"
+//            throw RuntimeException("Valor do saque deve ser menor que o saldo")
+//        }
+//    }
 }

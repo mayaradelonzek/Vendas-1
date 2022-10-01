@@ -15,7 +15,7 @@
             android:elevation="4dp"
             android:theme="@style/ToolbarTheme"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Transactions"
+            app:title="Transações"
             app:titleTextColor="@android:color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
