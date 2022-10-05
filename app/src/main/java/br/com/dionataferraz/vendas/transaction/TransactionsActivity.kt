@@ -3,6 +3,8 @@ package br.com.dionataferraz.vendas.transaction
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +35,7 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
         configureActionBar()
 
         viewModel = TransactionViewModel()
+        getProgressBar().visibility = View.VISIBLE
         viewModel.updateTrasactionView()
 
         val itemTouchHelper = ItemTouchHelper(getSwipe())
@@ -54,7 +57,17 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
             } else {
                 adapter.clear()
             }
+            getProgressBar().visibility = View.INVISIBLE
+            getItensView().visibility = View.VISIBLE
         }
+    }
+
+    fun getProgressBar(): ProgressBar {
+        return binding.transactionsProgressBar
+    }
+
+    fun getItensView(): RecyclerView {
+        return binding.rcList
     }
 
     fun getSwipe(): ItemTouchHelper.SimpleCallback {
@@ -73,6 +86,8 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
 
             @SuppressLint("NotifyDataSetChanged")
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                getProgressBar().visibility = View.VISIBLE
+                getItensView().visibility = View.INVISIBLE
 
                 //Remove swiped item from list and notify the RecyclerView
                 val position = viewHolder.adapterPosition

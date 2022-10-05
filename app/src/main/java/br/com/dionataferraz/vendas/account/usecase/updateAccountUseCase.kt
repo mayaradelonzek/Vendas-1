@@ -24,5 +24,6 @@ class updateAccountUseCase(private val acc: AccountEntity,
 
     fun credit() {
         acc.value += amount
+        invoke()
     }
 }

@@ -8,6 +8,22 @@
         android:layout_height="match_parent"
         tools:context=".account.AccountActivity">
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:indeterminate = "true"
+            android:max="100"
+            android:minWidth="200dp"
+            android:minHeight="50dp"
+            android:visibility="invisible"
+            android:progress="0" />
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/create_acc_toolbar"
             android:layout_width="match_parent"
@@ -15,69 +31,51 @@
             android:elevation="4dp"
             android:theme="@style/ToolbarTheme"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Create Account"
+            app:title="Nova Compra"
             app:titleTextColor="@android:color/white" />
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:paddingHorizontal="16dp"
             android:id="@+id/ti_saldo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="250dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/buttons"
+
             app:layout_constraintTop_toBottomOf="@+id/create_acc_toolbar">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/valueET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/saldo"
+                android:hint="@string/nova_compra_valor"
                 android:imeOptions="actionNext"
                 android:inputType="numberDecimal" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <Spinner
+            android:id="@+id/nova_compra_tipos_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/buttons"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
             android:paddingHorizontal="16dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ti_saldo">
+            app:layout_constraintBottom_toTopOf="@+id/nova_compra_btn_comprar"
+            app:layout_constraintTop_toBottomOf="@+id/ti_saldo"/>
 
             <com.google.android.material.button.MaterialButton
-                android:layout_marginEnd="16dp"
-                android:id="@+id/bt_market"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/mercado"
-                android:textSize="12sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_gas_station"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/combustivel"
-                android:textSize="12sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_pub"
+                android:id="@+id/nova_compra_btn_comprar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
+                android:paddingHorizontal="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="@string/pub"/>
-        </LinearLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nova_compra_tipos_spinner"
+                android:text="@string/nova_compra_btn_comprar"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

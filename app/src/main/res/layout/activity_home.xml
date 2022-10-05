@@ -114,7 +114,7 @@
             android:layout_marginTop="100dp"
             android:layout_marginEnd="16dp"
             android:background="@color/purple_700"
-            android:text="@string/nova_conta"
+            android:text="@string/nova_compra"
             android:textAllCaps="false"
             android:textSize="@dimen/text_size_14"
             app:layout_constraintEnd_toEndOf="parent"

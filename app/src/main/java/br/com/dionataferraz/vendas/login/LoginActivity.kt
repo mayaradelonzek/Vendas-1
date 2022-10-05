@@ -3,6 +3,8 @@ package br.com.dionataferraz.vendas.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.dionataferraz.vendas.HomeActivity
@@ -32,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.btLogin.setOnClickListener {
+            getProgressBar().bringToFront();
+            getProgressBar().visibility = View.VISIBLE
             viewModel.login(
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString(),
@@ -59,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
             }
+            getProgressBar().visibility = View.INVISIBLE
         }
 
         viewModel.shouldShowError.observe(this) { shouldShow ->
@@ -69,12 +74,11 @@ class LoginActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+            getProgressBar().visibility = View.INVISIBLE
         }
+    }
 
-//        CoroutineScope(Dispatchers.IO).launch {
-//
-//            val users = database.DAO().getUser()
-//            Log.e("DAO", users.toString())
-//        }
+    fun getProgressBar(): ProgressBar {
+        return binding.progressBar
     }
 }

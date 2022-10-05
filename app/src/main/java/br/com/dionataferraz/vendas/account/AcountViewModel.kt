@@ -15,14 +15,14 @@ class AccountViewModel : ViewModel() {
     var error = MutableLiveData<String>()
     var success = MutableLiveData<Double>()
 
-    fun gasStationAcc(id: Int, amount: Double) {
+    fun registerItemBought(id: Int, value: Double, type: TransactionType) {
         try {
             val acc = findAccountUseCase(id).invoke()
 
             val newTransaction = TransactionRequest(
-                value = amount,
-                description = TransactionType.GAS_STATION.name,
-                transactionType = TransactionType.GAS_STATION
+                value = value,
+                description = type.value,
+                transactionType = type
             )
 
             viewModelScope.launch() {
@@ -31,53 +31,12 @@ class AccountViewModel : ViewModel() {
 
             updateAccountUseCase(
                 acc = acc,
-                amount = amount).credit()
-            success.value = amount
+                amount = value).credit()
+            success.value = value
         } catch (e: RuntimeException) {
             println(e.message)
+            error.value = e.message
         }
-    }
-
-    fun pubAcc(id: Int, amount: Double) {
-        try {
-            val acc = findAccountUseCase(id).invoke()
-
-            val newTransaction = TransactionRequest(
-                value = amount,
-                description = TransactionType.PUB.name,
-                transactionType = TransactionType.PUB
-            )
-
-            viewModelScope.launch() {
-                InsertTransactionUsecase(newTransaction).register()
-            }
-
-            updateAccountUseCase(
-                acc = acc,
-                amount = amount).credit()
-            success.value = amount
-        } catch (e: RuntimeException) {
-            println(e.message)
-        }
-    }
-
-    fun marketAcc(id: Int, amount: Double) {
-        val acc = findAccountUseCase(id).invoke()
-
-        val newTransaction = TransactionRequest(
-            value = amount,
-            description = TransactionType.MARKET.name,
-            transactionType = TransactionType.MARKET
-        )
-
-        viewModelScope.launch() {
-            InsertTransactionUsecase(newTransaction).register()
-        }
-
-        updateAccountUseCase(
-            acc = acc,
-            amount = amount).credit()
-        success.value = amount
     }
 
 //    @Throws(RuntimeException::class)

@@ -2,6 +2,8 @@ package br.com.dionataferraz.vendas.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.com.dionataferraz.vendas.HomeActivity
@@ -27,6 +29,8 @@ class ProfileActivity : AppCompatActivity() {
         viewModel = ProfileViewModel()
 
         binding.btSave.setOnClickListener {
+            getProgressBar().bringToFront();
+            getProgressBar().visibility = View.VISIBLE
             val newUser = NewUserRequest(
                 name = binding.etName.text.toString(),
                 email = binding.etEmail.text.toString(),
@@ -44,6 +48,7 @@ class ProfileActivity : AppCompatActivity() {
                     "Perfil de " + binding.etName.text.toString() + " criado",
                     Toast.LENGTH_LONG).show()
             }
+            getProgressBar().visibility = View.INVISIBLE
         }
 
         viewModel.shouldShowError.observe(this) { shouldShow ->
@@ -55,6 +60,10 @@ class ProfileActivity : AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    fun getProgressBar(): ProgressBar {
+        return binding.profileProgressBar
     }
 
     private fun configureActionBar(){

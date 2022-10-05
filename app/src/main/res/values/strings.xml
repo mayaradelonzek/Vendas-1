@@ -19,11 +19,11 @@
     <string name="home_balance_available">Saldo disponivel</string>
     <string name="home_next_invoice">Próxima fatura</string>
     <string name="nome_da_conta">Nome da Conta</string>
-    <string name="saldo">Saldo</string>
+    <string name="nova_compra_valor">Valor</string>
     <string name="responsavel_da_conta">Responsável da Conta</string>
     <string name="credito">Crédito</string>
     <string name="debito">Débito</string>
-    <string name="nova_conta">Nova Conta</string>
+    <string name="nova_compra">Nova Compra</string>
     <string name="list_transac">Transações</string>
     <string name="title_activity_bottom_sheet">BottomSheetActivity</string>
     <string name="clear">Limpar</string>
@@ -35,7 +35,7 @@
     <string name="remover">Remover</string>
     <string name="depositar">Depositar</string>
     <string name="resgatar">Resgatar</string>
-    <string name="pub">Pub</string>
+    <string name="nova_compra_btn_comprar">Comprar</string>
     <string name="combustivel">Combustível</string>
     <string name="mercado">Mercado</string>
 </resources>
