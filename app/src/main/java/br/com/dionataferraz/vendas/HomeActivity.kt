@@ -35,8 +35,6 @@ class HomeActivity : AppCompatActivity() {
         configureActionBar()
         setViewValues()
 
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
-
         binding.newAcc.setOnClickListener {
             val intent  = Intent(this, AccountActivity::class.java)
             startActivity(intent)

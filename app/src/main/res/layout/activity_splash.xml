@@ -7,6 +7,7 @@
     tools:context=".SplashActivity">
 
     <ImageView
+        android:id="@+id/logo_fundatec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo_fundatec"
@@ -16,5 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/logo_fundatec" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bank"
+        android:text="@string/bank"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/logo_fundatec"
+        app:layout_constraintEnd_toEndOf="@id/logo_fundatec"
+        android:textColor="@color/yellow_fundatec"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

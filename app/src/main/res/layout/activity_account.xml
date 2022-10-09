@@ -28,18 +28,42 @@
             android:id="@+id/create_acc_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/yellow_fundatec"
             android:elevation="4dp"
             android:theme="@style/ToolbarTheme"
             app:layout_constraintTop_toTopOf="parent"
             app:title="Nova Compra"
             app:titleTextColor="@android:color/white" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_login"
+            android:layout_marginTop="500dp"
+            app:layout_constraintTop_toBottomOf="@id/create_acc_toolbar">
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/msg_new_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
+            android:text="@string/o_que_deseja_comprar"
+            android:textStyle="italic"
+            android:textSize="40sp"
+            android:textColor="@color/blue_fundatec"
+            app:layout_constraintBottom_toTopOf="@id/ti_saldo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/create_acc_toolbar" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_saldo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:textColorHint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/create_acc_toolbar">
 
@@ -47,34 +71,41 @@
                 android:id="@+id/valueET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/gray_fundatec"
                 android:hint="@string/nova_compra_valor"
-                android:background="@color/blue2_fundatec"
-                android:imeOptions="actionNext"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:imeOptions="actionDone"
+
                 android:inputType="numberDecimal" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/nova_compra_btn_comprar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_marginTop="20dp"
-            android:layout_margin="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nova_compra_tipos_spinner"
-            android:text="@string/nova_compra_btn_comprar"/>
 
         <Spinner
             android:id="@+id/nova_compra_tipos_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:dropDownVerticalOffset="50dp"
-            android:layout_marginTop="20dp"
             android:layout_margin="16dp"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
             android:background="@drawable/spinner_list_bg"
+            android:dropDownVerticalOffset="50dp"
             app:layout_constraintBottom_toTopOf="@+id/nova_compra_btn_comprar"
-            app:layout_constraintTop_toBottomOf="@+id/ti_saldo"/>
+            app:layout_constraintTop_toBottomOf="@+id/ti_saldo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/nova_compra_btn_comprar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/roundedbutton"
+            android:text="@string/nova_compra_btn_comprar"
+            android:paddingHorizontal="40dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nova_compra_tipos_spinner" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
+        android:background="@drawable/testee"
         tools:context=".profile.ProfileActivity">
 
         <ProgressBar
@@ -25,10 +26,27 @@
             android:visibility="invisible"
             android:progress="0" />
 
+        <TextView
+            android:id="@+id/msg_new_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="46dp"
+            android:text="@string/ol_que_bom_te_ter_por_aqui"
+            android:textStyle="italic"
+            android:textSize="40sp"
+            android:textColor="@color/blue_fundatec"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:layout_marginTop="190dp"
             app:layout_constraintBottom_toTopOf="@+id/ti_email"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed">
@@ -37,7 +55,12 @@
                 android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#30ffffff"
                 android:hint="@string/nome"
+                android:drawableStart="@drawable/ic_baseline_person_outline_24"
+                android:drawablePadding="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:imeOptions="actionNext"
                 android:inputType="text" />
 
@@ -47,6 +70,8 @@
             android:id="@+id/ti_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/ti_password"
             app:layout_constraintTop_toBottomOf="@+id/ti_name">
@@ -56,6 +81,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
+                android:background="#30ffffff"
+                android:drawableStart="@drawable/ic_baseline_email_24"
+                android:drawablePadding="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +94,8 @@
             android:id="@+id/ti_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/ti_age"
             app:layout_constraintTop_toBottomOf="@+id/ti_email">
@@ -73,6 +105,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
+                android:background="#30ffffff"
+                android:drawableStart="@drawable/ic_baseline_lock_24"
+                android:drawablePadding="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:imeOptions="actionNext"
                 android:inputType="numberPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +134,9 @@
             android:id="@+id/bt_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/roundedbutton"
             android:text="@string/save"
+            android:paddingHorizontal="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rg" />
 

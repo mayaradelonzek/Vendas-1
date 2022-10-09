@@ -38,4 +38,7 @@
     <string name="nova_compra_btn_comprar">Comprar</string>
     <string name="combustivel">Combustível</string>
     <string name="mercado">Mercado</string>
+    <string name="o_que_deseja_comprar">O que deseja comprar?</string>
+    <string name="ol_que_bom_te_ter_por_aqui">Olá, que bom te ter por aqui!</string>
+    <string name="bank">Bank</string>
 </resources>
