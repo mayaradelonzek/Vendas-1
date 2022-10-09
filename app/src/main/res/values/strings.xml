@@ -13,10 +13,10 @@
     <string name="other">Outro</string>
     <string name="save">Salvar</string>
     <string name="home_hello">Olá,</string>
-    <string name="home_user_default">User</string>
+    <string name="home_user_default">User!</string>
     <string name="home_new_transaction">Nova compra</string>
     <string name="home_bank_balance">R$ 0,00</string>
-    <string name="home_balance_available">Saldo disponivel</string>
+    <string name="home_balance_available">Fatura Atual</string>
     <string name="home_next_invoice">Próxima fatura</string>
     <string name="nome_da_conta">Nome da Conta</string>
     <string name="nova_compra_valor">Valor</string>
