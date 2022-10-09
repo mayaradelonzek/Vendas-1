@@ -1,5 +1,6 @@
 package br.com.dionataferraz.vendas.transaction.usecase
 
+import br.com.dionataferraz.vendas.account.usecase.updateAccountUseCase
 import br.com.dionataferraz.vendas.login.data.remote.ErrorModel
 import br.com.dionataferraz.vendas.login.data.remote.Result
 import br.com.dionataferraz.vendas.login.domain.usecase.GetUserUsecase

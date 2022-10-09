@@ -94,7 +94,7 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
 //                arrayList.remove(position)
                 val item = adapter.getItemByPosition(position = position)
 //                Toast.makeText(this@TransactionsActivity, item.amount.toString(), Toast.LENGTH_SHORT).show()
-                viewModel.delete(item.id)
+                viewModel.delete(item.id, item.amount)
                 adapter.notifyDataSetChanged()
             }
         }

@@ -11,19 +11,25 @@ import br.com.dionataferraz.vendas.transaction.usecase.InsertTransactionUsecase
 import kotlinx.coroutines.launch
 import java.util.*
 
-class updateAccountUseCase(private val acc: AccountEntity,
-                           private val amount: Double) {
+class updateAccountUseCase() {
 
     private val database: AccountDatabase by lazy {
         AccountDatabase.getInstance(context = App.context)
     }
 
-    private fun invoke() {
+    private fun invoke(acc: AccountEntity,) {
         database.AccDao().updateAccount(acc)
     }
 
-    fun credit() {
+    fun credit(acc: AccountEntity,
+               amount: Double) {
         acc.value += amount
-        invoke()
+        invoke(acc)
+    }
+
+    fun debit(acc: AccountEntity,
+               amount: Double) {
+        acc.value -= amount
+        invoke(acc)
     }
 }

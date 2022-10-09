@@ -17,7 +17,7 @@ class AccountViewModel : ViewModel() {
 
     fun registerItemBought(id: Int, value: Double, type: TransactionType) {
         try {
-            val acc = findAccountUseCase(id).invoke()
+            val acc = findAccountUseCase().invoke(id)
 
             val newTransaction = TransactionRequest(
                 value = value,
@@ -29,9 +29,9 @@ class AccountViewModel : ViewModel() {
                 InsertTransactionUsecase(newTransaction).register()
             }
 
-            updateAccountUseCase(
+            updateAccountUseCase().credit(
                 acc = acc,
-                amount = value).credit()
+                amount = value)
             success.value = value
         } catch (e: RuntimeException) {
             println(e.message)
