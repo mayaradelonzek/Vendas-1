@@ -10,6 +10,8 @@ import br.com.dionataferraz.vendas.account.data.local.AccountEntity
 import br.com.dionataferraz.vendas.databinding.ActivityHomeBinding
 import br.com.dionataferraz.vendas.login.data.local.VendasDatabase
 import br.com.dionataferraz.vendas.transaction.TransactionsActivity
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
@@ -67,7 +69,9 @@ class HomeActivity : AppCompatActivity() {
     private fun setViewValues() {
         val account = getAccValues()
         val user = databaseUser.DAO().getUser().get(0)
-        binding.tvAccountBalance.text = "R$ " + account.value.toString()
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.HALF_EVEN
+        binding.tvAccountBalance.text = "R$ " + df.format(account.value)
         binding.tvLoggedUser.text = user.name
     }
 

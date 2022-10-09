@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.dionataferraz.vendas.databinding.ItemListBinding
 import br.com.dionataferraz.vendas.transaction.TransactionType
 import br.com.dionataferraz.vendas.transaction.local.TransactionEntity
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
@@ -98,9 +100,12 @@ class TransactionViewHolder(
 
     @SuppressLint("SetTextI18n")
     fun bind(transaction: TransactionEntity) {
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.HALF_EVEN
+
         binding.tvName.text = getFormatedName(transaction.transactionType)
         binding.tvTime.text = getFormatedDate(transaction.time)
-        binding.tvAmount.text = "R$ " + transaction.amount.toString()
+        binding.tvAmount.text = "R$ " + df.format(transaction.amount)
         binding.icon.setCompoundDrawablesWithIntrinsicBounds(getIconByTransactionType(transaction.transactionType), 0, 0, 0)
         binding.root.setOnClickListener {
 //            listener.onItemClick(transaction)

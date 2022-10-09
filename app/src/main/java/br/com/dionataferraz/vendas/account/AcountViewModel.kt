@@ -17,6 +17,7 @@ class AccountViewModel : ViewModel() {
 
     fun registerItemBought(id: Int, value: Double, type: TransactionType) {
         try {
+            validateCredit(value)
             val acc = findAccountUseCase().invoke(id)
 
             val newTransaction = TransactionRequest(
@@ -39,11 +40,16 @@ class AccountViewModel : ViewModel() {
         }
     }
 
-//    @Throws(RuntimeException::class)
-//    private fun validateWithdraw(withdrawal: Double, balance: Double) {
-//        if (withdrawal > balance) {
-//            error.value = "Valor do saque deve ser menor que o saldo"
-//            throw RuntimeException("Valor do saque deve ser menor que o saldo")
-//        }
-//    }
+    @Throws(RuntimeException::class)
+    private fun validateCredit(value: Double) {
+        val valueSplit = value.toString().split(".");
+
+        if (valueSplit.size > 1 && valueSplit[1].length > 2) {
+            throw RuntimeException("Valor deve ter, no máximo, duas casas decimais")
+        }
+
+        if (value <= 0) {
+            throw RuntimeException("Valor da compra deve ser maior que zero")
+        }
+    }
 }
