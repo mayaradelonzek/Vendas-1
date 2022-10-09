@@ -1,32 +1,30 @@
 package br.com.dionataferraz.vendas.transaction
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import br.com.dionataferraz.vendas.App
 import br.com.dionataferraz.vendas.TransactionAdapter
 import br.com.dionataferraz.vendas.databinding.ActivityTransactionsBinding
-import br.com.dionataferraz.vendas.transaction.data.TransactionDatabase
-import br.com.dionataferraz.vendas.transaction.data.TransactionEntity
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import java.util.Date
+import br.com.dionataferraz.vendas.login.data.local.VendasDatabase
+import br.com.dionataferraz.vendas.transaction.local.TransactionDatabase
+import br.com.dionataferraz.vendas.transaction.local.TransactionEntity
+import kotlin.streams.toList
+
 
 class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
 
     private lateinit var binding: ActivityTransactionsBinding
+    private lateinit var viewModel: TransactionViewModel
     private val adapter: TransactionAdapter by lazy {
         TransactionAdapter(this)
-    }
-
-    private val databaseTransac: TransactionDatabase by lazy {
-        TransactionDatabase.getInstance(context = App.context)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -36,42 +34,70 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
         setContentView(binding.root)
         configureActionBar()
 
-        binding.rcList.adapter = adapter
+        viewModel = TransactionViewModel()
+        getProgressBar().visibility = View.VISIBLE
+        viewModel.updateTrasactionView()
 
-        adapter.addList(getTransactionList())
-//        setupTransactionList()?.let { adapter.addList(it) }
-    }
+        val itemTouchHelper = ItemTouchHelper(getSwipe())
+        itemTouchHelper.attachToRecyclerView(binding.rcList)
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun setupTransactionList(): List<TransactionEntity>? {
-        val sharedPreferences = getSharedPreferences("transacListPrefs", Context.MODE_PRIVATE);
-        var jsonTransactions = sharedPreferences.getString("transactionList", "");
-        val jsonAdapter = getJsonTransactionListAdapter();
-
-        if (jsonTransactions.isNullOrBlank()) {
-            val listJson = jsonAdapter?.toJson(getTransactionList())
-            sharedPreferences
-                .edit()
-                .putString("transactionList", listJson)
-                .apply()
-
-            jsonTransactions = sharedPreferences.getString("transactionList", "")
+        viewModel.transactionList.observe(this) { transactions ->
+            if (transactions != null && !transactions.isEmpty()) {
+                val transactionsE = transactions.stream().map {
+                    TransactionEntity(
+                        id = it.id,
+                        amount = it.value,
+                        name = it.description,
+                        time = it.transactionDate,
+                        transactionType = it.transactionType
+                    )
+                }.toList()
+                binding.rcList.adapter = adapter
+                adapter.addList(transactionsE)
+            } else {
+                adapter.clear()
+            }
+            getProgressBar().visibility = View.INVISIBLE
+            getItensView().visibility = View.VISIBLE
         }
-
-        val listTransactionJson = jsonTransactions?.let { jsonAdapter?.fromJson(it) };
-
-        return listTransactionJson
     }
 
-    fun getJsonTransactionListAdapter(): JsonAdapter<List<TransactionEntity>>? {
-        val moshi = Moshi
-            .Builder()
-            .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
-            .addLast(KotlinJsonAdapterFactory())
-            .build()
-        val listType = Types.newParameterizedType(List::class.java, TransactionEntity::class.java)
+    fun getProgressBar(): ProgressBar {
+        return binding.transactionsProgressBar
+    }
 
-        return moshi.adapter(listType)
+    fun getItensView(): RecyclerView {
+        return binding.rcList
+    }
+
+    fun getSwipe(): ItemTouchHelper.SimpleCallback {
+        return object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.DOWN or ItemTouchHelper.UP
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                Toast.makeText(this@TransactionsActivity, "on Move", Toast.LENGTH_SHORT).show()
+                return false
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+                getProgressBar().visibility = View.VISIBLE
+                getItensView().visibility = View.INVISIBLE
+
+                //Remove swiped item from list and notify the RecyclerView
+                val position = viewHolder.adapterPosition
+//                arrayList.remove(position)
+                val item = adapter.getItemByPosition(position = position)
+//                Toast.makeText(this@TransactionsActivity, item.amount.toString(), Toast.LENGTH_SHORT).show()
+                viewModel.delete(item.id, item.amount)
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 
     override fun onItemClick(text: String) {
@@ -80,6 +106,10 @@ class TransactionsActivity : AppCompatActivity(), TransactionAdapter.Listener {
             text,
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    private val databaseTransac: TransactionDatabase by lazy {
+        TransactionDatabase.getInstance(context = App.context)
     }
 
     private fun getTransactionList(): List<TransactionEntity> {

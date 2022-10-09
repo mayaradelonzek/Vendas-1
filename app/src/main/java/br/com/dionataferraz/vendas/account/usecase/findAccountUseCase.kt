@@ -4,14 +4,18 @@ import br.com.dionataferraz.vendas.App
 import br.com.dionataferraz.vendas.account.data.local.AccountDatabase
 import br.com.dionataferraz.vendas.account.data.local.AccountEntity
 
-class findAccountUseCase(private val id: Int) {
+class findAccountUseCase() {
 
-    private val database: AccountDatabase by lazy {
+    private val database by lazy {
         AccountDatabase.getInstance(context = App.context)
     }
 
-    fun invoke(): AccountEntity {
+    fun invoke(id: Int): AccountEntity {
         return database.AccDao().getAccount(id)
+    }
+
+    fun getLogged(): AccountEntity {
+        return database.AccDao().getAccount()[0]
     }
 
 }

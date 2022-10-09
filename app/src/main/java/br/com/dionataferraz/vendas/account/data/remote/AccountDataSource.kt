@@ -5,8 +5,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import br.com.dionataferraz.vendas.App
 import br.com.dionataferraz.vendas.account.data.local.AccountDatabase
-import br.com.dionataferraz.vendas.account.data.local.AccountEntity
-import br.com.dionataferraz.vendas.account.data.local.Operation
 import br.com.dionataferraz.vendas.databinding.ActivityAccountBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +25,6 @@ class AccountDataSource : AppCompatActivity() {
             Log.e("account", account.toString())
         }
     }
-
 }
 
 object ErrorModel

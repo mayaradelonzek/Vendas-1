@@ -1,14 +1,17 @@
 package br.com.dionataferraz.vendas
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import br.com.dionataferraz.vendas.account.AccountActivity
 import br.com.dionataferraz.vendas.account.data.local.AccountDatabase
 import br.com.dionataferraz.vendas.account.data.local.AccountEntity
-import br.com.dionataferraz.vendas.account.data.local.Operation
 import br.com.dionataferraz.vendas.databinding.ActivityHomeBinding
+import br.com.dionataferraz.vendas.login.data.local.VendasDatabase
 import br.com.dionataferraz.vendas.transaction.TransactionsActivity
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.*
 
 class HomeActivity : AppCompatActivity() {
@@ -17,6 +20,10 @@ class HomeActivity : AppCompatActivity() {
 
     private val databaseAcc: AccountDatabase by lazy {
         AccountDatabase.getInstance(context = App.context)
+    }
+
+    private val databaseUser: VendasDatabase by lazy {
+        VendasDatabase.getInstance(context = App.context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,19 +35,14 @@ class HomeActivity : AppCompatActivity() {
 
         setContentView(binding.root)
         configureActionBar()
-        configureAcc()
-        setSaldo()
-
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        setViewValues()
 
         binding.newAcc.setOnClickListener {
-//            viewModel.login(null, null)
             val intent  = Intent(this, AccountActivity::class.java)
             startActivity(intent)
         }
 
         binding.listTransac.setOnClickListener {
-//            viewModel.login(null, null)
             val intent  = Intent(this, TransactionsActivity::class.java)
             startActivity(intent)
         }
@@ -50,33 +52,32 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
-    private fun setSaldo() {
-        val account = databaseAcc.AccDao().getAccount(1)
-        binding.tvAccountBalance.text = "R$ " + account.value.toString()
+    fun getAccValues(): AccountEntity {
+        val account = databaseAcc.AccDao().getAccount()
+        if (account.isEmpty()) {
+            val newAcc = AccountEntity(
+                id = 1,
+                value = 0.0,
+                date = Date()
+            )
+            databaseAcc.AccDao().insertAccount(newAcc)
+        }
+        return databaseAcc.AccDao().getAccount().get(0)
     }
 
-    private fun configureAcc() {
-        val account = databaseAcc.AccDao().getAccount(1)
-
-        if (account == null) {
-            val dao = databaseAcc.AccDao()
-            val acc = AccountEntity(
-                id = 1,
-                value = 300.00,
-                date = Date(2021, 12, 5, 10, 0),
-                type = Operation.DEPOSIT
-            )
-
-            dao.insertAccount(acc)
-        }
-
+    @SuppressLint("SetTextI18n")
+    private fun setViewValues() {
+        val account = getAccValues()
+        val user = databaseUser.DAO().getUser().get(0)
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.HALF_EVEN
+        binding.tvAccountBalance.text = "R$ " + df.format(account.value)
+        binding.tvLoggedUser.text = user.name
     }
 
     private fun configureActionBar(){
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
 }
 

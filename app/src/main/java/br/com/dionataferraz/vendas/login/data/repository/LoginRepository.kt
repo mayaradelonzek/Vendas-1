@@ -3,6 +3,7 @@ package br.com.dionataferraz.vendas.login.data.repository
 import br.com.dionataferraz.vendas.login.data.remote.ErrorModel
 import br.com.dionataferraz.vendas.login.data.remote.LoginDataSource
 import br.com.dionataferraz.vendas.login.data.remote.Result
+import br.com.dionataferraz.vendas.login.data.request.NewUserRequest
 import br.com.dionataferraz.vendas.login.data.response.UserResponse
 
 class LoginRepository {
@@ -11,5 +12,9 @@ class LoginRepository {
     }
     suspend fun login(email: String, password: String): Result<UserResponse, ErrorModel> {
         return remoteDataSource.login(password = password, email = email)
+    }
+
+    suspend fun register(newUserRequest: NewUserRequest): Result<UserResponse, ErrorModel> {
+        return remoteDataSource.registerUser(newUserRequest)
     }
 }

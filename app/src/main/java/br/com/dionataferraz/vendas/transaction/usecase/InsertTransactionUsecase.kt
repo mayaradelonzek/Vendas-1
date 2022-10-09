@@ -1,17 +1,21 @@
 package br.com.dionataferraz.vendas.transaction.usecase
 
-import br.com.dionataferraz.vendas.App
-import br.com.dionataferraz.vendas.transaction.data.TransactionDatabase
-import br.com.dionataferraz.vendas.transaction.data.TransactionEntity
+import br.com.dionataferraz.vendas.login.data.remote.ErrorModel
+import br.com.dionataferraz.vendas.login.data.remote.Result
+import br.com.dionataferraz.vendas.login.domain.usecase.GetUserUsecase
+import br.com.dionataferraz.vendas.transaction.data.TransactionRequest
+import br.com.dionataferraz.vendas.transaction.data.TransactionResponse
+import br.com.dionataferraz.vendas.transaction.repository.TransactionRepository
 
-class InsertTransactionUsecase(private val trans: TransactionEntity) {
+class InsertTransactionUsecase(private val transaction: TransactionRequest) {
 
-    private val database: TransactionDatabase by lazy {
-        TransactionDatabase.getInstance(context = App.context)
+    private val repository by lazy {
+        TransactionRepository()
     }
 
-    fun invoke() {
-        database.DAO().insertTransaction(trans)
+    suspend fun register() {
+        val loggedUser = GetUserUsecase().getLoggedUser()
+        repository.register(loggedUser.id, transaction)
     }
 
 }

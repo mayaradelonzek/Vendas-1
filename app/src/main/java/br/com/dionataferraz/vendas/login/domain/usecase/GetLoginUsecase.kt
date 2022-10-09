@@ -13,4 +13,5 @@ class GetLoginUsecase {
     suspend fun login(email: String, password: String): Result<UserResponse, ErrorModel> {
         return repository.login(password = password, email = email)
     }
+
 }

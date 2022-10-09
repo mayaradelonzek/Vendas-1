@@ -1,5 +1,6 @@
 package br.com.dionataferraz.vendas.login.data.remote
 
+import br.com.dionataferraz.vendas.login.data.request.NewUserRequest
 import br.com.dionataferraz.vendas.login.data.response.UserResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,16 +12,26 @@ class LoginDataSource {
 
     suspend fun login(email:String, password:String):Result<UserResponse, ErrorModel> {
         return withContext(Dispatchers.IO) {
-//            try {
-//                var user = service.login(email, password)
-//                Result.Success(user)
             try {
-                Result.Success(UserResponse("a", "a", "1"))
+                val user = service.login(email, password)
+                Result.Success(user)
             } catch (exception:Exception){
                 Result.Error(ErrorModel)
             }
         }
     }
+
+    suspend fun registerUser(newUserRequest: NewUserRequest):Result<UserResponse, ErrorModel> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val user = service.register(newUserRequest)
+                Result.Success(user)
+            } catch (exception:Exception){
+                Result.Error(ErrorModel)
+            }
+        }
+    }
+
 }
 
 object ErrorModel

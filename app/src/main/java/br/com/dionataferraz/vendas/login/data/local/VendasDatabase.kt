@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import br.com.dionataferraz.vendas.account.converters.Converters
 
-@Database(entities = [UserEntity::class], version = 2)
+@Database(entities = [UserEntity::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class VendasDatabase : RoomDatabase() {
 

@@ -1,4 +1,4 @@
-package br.com.dionataferraz.vendas.transaction.data
+package br.com.dionataferraz.vendas.transaction.local
 
 import android.content.Context
 import androidx.room.Database

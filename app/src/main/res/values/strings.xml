@@ -12,19 +12,19 @@
     <string name="woman">Mulher</string>
     <string name="other">Outro</string>
     <string name="save">Salvar</string>
-    <string name="home_hello">Olá, %s</string>
+    <string name="home_hello">Olá,</string>
+    <string name="home_user_default">User!</string>
     <string name="home_new_transaction">Nova compra</string>
     <string name="home_bank_balance">R$ 0,00</string>
-    <string name="home_balance_available">Saldo disponivel</string>
+    <string name="home_balance_available">Fatura Atual</string>
     <string name="home_next_invoice">Próxima fatura</string>
     <string name="nome_da_conta">Nome da Conta</string>
-    <string name="saldo">Saldo</string>
+    <string name="nova_compra_valor">Valor</string>
     <string name="responsavel_da_conta">Responsável da Conta</string>
     <string name="credito">Crédito</string>
     <string name="debito">Débito</string>
-    <string name="nova_conta">Nova Conta</string>
+    <string name="nova_compra">Nova Compra</string>
     <string name="list_transac">Transações</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_bottom_sheet">BottomSheetActivity</string>
     <string name="clear">Limpar</string>
     <string name="logo_fundatec">Logo Fundatec</string>
@@ -35,4 +35,10 @@
     <string name="remover">Remover</string>
     <string name="depositar">Depositar</string>
     <string name="resgatar">Resgatar</string>
+    <string name="nova_compra_btn_comprar">Comprar</string>
+    <string name="combustivel">Combustível</string>
+    <string name="mercado">Mercado</string>
+    <string name="o_que_deseja_comprar">O que deseja comprar?</string>
+    <string name="ol_que_bom_te_ter_por_aqui">Olá, que bom te ter por aqui!</string>
+    <string name="bank">Bank</string>
 </resources>
